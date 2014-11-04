@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <cstdio>
 
-#include <iostream>
+// #include <iostream>
 
 #include <vector>
 #include <queue>
@@ -53,55 +53,61 @@ typedef struct _proc_stats_t
 // struct to store processing result from each cycle
 struct proc_result_t {
 	proc_result_t() : retired_inst(0), fired_inst(0), disp_size(0) {}
-	int retired_inst;
-	int fired_inst;
+	unsigned int retired_inst;
+	unsigned int fired_inst;
 	unsigned long disp_size;
 };
 
 class ProcSim {
 public:
-	ProcSim() : k0(DEFAULT_K0), k1(DEFAULT_K1), k2(DEFAULT_K2), r(DEFAULT_R), f(DEFAULT_F),
-		schedQ_capacity(2 * (k0 + k1 + k2)), inst_count(0),
-		regFile(vector<RegFileEntry>(REG_NUMBER, RegFileEntry())) {}
-	ProcSim(uint64_t k0, uint64_t k1, uint64_t k2, uint64_t r, uint64_t f) :
-		k0(k0), k1(k1), k2(k2), r(r), f(f),
+	ProcSim() :
+		proc_complete(false),
+		k0(DEFAULT_K0), k1(DEFAULT_K1), k2(DEFAULT_K2), r(DEFAULT_R), f(DEFAULT_F),
+		schedQ_capacity(2 * (k0 + k1 + k2)),
 		inst_count(0),
-		schedQ_capacity(2 * (k0 + k1 + k2)), /*schedQ_left(schedQ_capacity),*/
-		proc_complete(false), fetch_complete(false),
+		fetch_complete(false) {}
+	ProcSim(uint64_t k0, uint64_t k1, uint64_t k2, uint64_t r, uint64_t f) :
+		proc_complete(false),
+		k0(k0), k1(k1), k2(k2), r(r), f(f),
+		schedQ_capacity(2 * (k0 + k1 + k2)), 
+		inst_count(0),
+		fetch_complete(false),
 		schedQ(vector<SchedQEntry>(schedQ_capacity, SchedQEntry())),
 		regFile(vector<RegFileEntry>(REG_NUMBER, RegFileEntry())) {}
-	proc_result_t instProc();
-	void setFU(int k0, int k1, int k2) { fu_left[0] = k0; fu_left[1] = k1; fu_left[2] = k2; }
 	bool proc_complete;
-	unsigned long getInstCount() { return inst_count; }
+	void setFU(int k0, int k1, int k2) { fu_left[0] = k0; fu_left[1] = k1; fu_left[2] = k2; }
+	proc_result_t instProc();
+//	unsigned long getInstCount() { return inst_count; }
 private:
 	uint64_t k0, k1, k2, r, f;
-	int fu_left[3]; // available function units
-	int schedQ_capacity; // 2 * (k0 + k1 + k2)
+	unsigned int schedQ_capacity; // 2 * (k0 + k1 + k2)
+	unsigned int fu_left[3]; // available function units
 	unsigned long inst_count; // initialize to 0, valid from 1
 	bool fetch_complete;
 	
 	// Dispatch Queue
-	queue<pair<int, proc_inst_t>> dispQ; // In-order dispatcher
+	queue<pair<unsigned long, proc_inst_t>> dispQ; // In-order dispatcher
 
 	// Scheduling Queue
 	struct SchedQEntry {
 		SchedQEntry() : instNo(0), Ready(false), Fired(false) {}
 		unsigned long instNo; // 0 indicates empty slot
-		int32_t funcUnit;
+		unsigned int funcUnit;
 		int32_t destReg;
 		unsigned long destTag;
 		bool srcReady[2];
 		unsigned long srcTag[2];
 		bool Ready;
 		bool Fired;
+#if DEBUGMODE
 		void display() {
 			std::cout << instNo << " " << funcUnit << " " << destReg << " " << destReg << " "
 				<< srcReady[0] << " " << srcReady[1] << " " << Ready << " " << Fired << std::endl;
 		}
+#endif
 	};
 	vector<SchedQEntry> schedQ; // Out-of-order scheduler
-	vector<int> schedQMap;
+	vector<unsigned int> schedQMap;
 	
 	// Register File
 	struct RegFileEntry {
@@ -114,10 +120,10 @@ private:
 	// Function Units
 	struct FuncUnitEntry {
 		FuncUnitEntry() : instNo(0), funcUnit(0), Reg(0), Tag(0) {}
-		FuncUnitEntry(unsigned long inst_no, int32_t func_unit, int32_t inst_reg, unsigned long inst_tag)
+		FuncUnitEntry(unsigned long inst_no, unsigned int func_unit, int32_t inst_reg, unsigned long inst_tag)
 		: instNo(inst_no), funcUnit(func_unit), Reg(inst_reg), Tag(inst_tag) {}
 		unsigned long instNo;
-		int32_t funcUnit;
+		unsigned int funcUnit;
 		int32_t Reg;
 		unsigned long Tag;
 	};
@@ -134,16 +140,16 @@ private:
 	};
 	vector<ResultBusEntry> resultBuses;
 
-	int stateUpdate(); // return # retired instructions
-	int instExecute(); // return # fired instructions
+	unsigned int stateUpdate(); // return # retired instructions
+	unsigned int instExecute(); // return # fired instructions
 	void instSchedule();
 	void instDispatch();
 	void instFetch();
 };
 
 
-bool read_instruction(proc_inst_t* p_inst, FILE* fin);
 extern FILE* inFile;
+bool read_instruction(proc_inst_t* p_inst, FILE* fin);
 
 void setup_proc(uint64_t r, uint64_t k0, uint64_t k1, uint64_t k2, uint64_t f);
 void run_proc(proc_stats_t* p_stats);

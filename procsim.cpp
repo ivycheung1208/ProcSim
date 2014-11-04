@@ -15,7 +15,7 @@ proc_result_t ProcSim::instProc() {
 
 
 /***************************************** State Update (SU) ******************************************/
-int ProcSim::stateUpdate() {
+unsigned int ProcSim::stateUpdate() {
 	// Completed instructions in FUs broadcast to free result buses, free FU
 	while (!funcUnits.empty() && resultBuses.size() != r) {
 #if DEBUGMODE
@@ -40,9 +40,9 @@ int ProcSim::stateUpdate() {
 
 
 /***************************************** Execute (EX) ***********************************************/
-int ProcSim::instExecute() {
+unsigned int ProcSim::instExecute() {
 	// If(!RS.Fired && RS.Ready) Fire to FUs if available, copy Destination Register and Tag, mark fired
-	int fired = 0;
+	unsigned int fired = 0;
 	for (size_t RS = 0; RS != schedQMap.size(); ++RS) { // for each valid RS (in tag order)
 #if DEBUGFU
 		schedQ[schedQMap[RS]].display();
@@ -74,9 +74,9 @@ void ProcSim::instSchedule() {
 	// If(!RS.Filed) Update via result buses, update ready bit
 	for (size_t RS = 0; RS != schedQ.size(); ++RS) { // for each RS in scheduling queue
 		if (schedQ[RS].instNo != 0 && !schedQ[RS].Fired) { // instruction not fired yet
-			for (int i = 0; i != 2; ++i) {
+			for (size_t i = 0; i != 2; ++i) {
 				if (!schedQ[RS].srcReady[i]) { // read result bus
-					for (int bus = 0; bus != resultBuses.size(); ++bus) {
+					for (size_t bus = 0; bus != resultBuses.size(); ++bus) {
 						if (schedQ[RS].srcTag[i] == resultBuses[bus].Tag) { // value broadcast on the bus
 							schedQ[RS].srcReady[i] = true;
 							break;
@@ -105,7 +105,7 @@ void ProcSim::instDispatch() {
 		schedQ[index].instNo = dispQ.front().first;
 		dispInst = &dispQ.front().second;
 		schedQ[index].funcUnit = dispInst->op_code == -1 ? 1 : dispInst->op_code;
-		for (int i = 0; i != 2; ++i) {
+		for (size_t i = 0; i != 2; ++i) {
 			if (dispInst->src_reg[i] == -1 || regFile[dispInst->src_reg[i]].Ready)
 				schedQ[index].srcReady[i] = true;
 			else {
@@ -143,7 +143,7 @@ void ProcSim::instDispatch() {
 void ProcSim::instFetch() {
 	// Fetch next instructions into Dispatch Queue
 	proc_inst_t *p_inst = new proc_inst_t;
-	for (int i = 0; !fetch_complete && i != f; ++i) {
+	for (size_t i = 0; !fetch_complete && i != f; ++i) {
 		if (read_instruction(p_inst, inFile)) {
 			dispQ.push(make_pair(++inst_count, *p_inst));
 		}
@@ -212,5 +212,5 @@ void complete_proc(proc_stats_t *p_stats)
 {
 	p_stats->avg_inst_retired = (float) p_stats->retired_instruction / p_stats->cycle_count;
 	p_stats->avg_inst_fired = (float) p_stats->fired_instruction / p_stats->cycle_count;
-	p_stats->avg_disp_size = (double) p_stats->total_disp_size / p_stats->cycle_count;
+	p_stats->avg_disp_size = (float) p_stats->total_disp_size / p_stats->cycle_count;
 }
