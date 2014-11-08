@@ -1,0 +1,74 @@
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ make
+g++ -g -Wall -std=c++0x -lm procsim.cpp procsim_driver.cpp -o procsim
+
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ls
+gcc.100k.trace    hmmer.output    procsim.cpp
+gcc.output        Makefile        procsim_driver.cpp
+gobmk.100k.trace  mcf.100k.trace  procsim.hpp
+gobmk.output      mcf.output
+hmmer.100k.trace  procsim
+
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <gcc.100k.trace
+Processor Settings
+R: 2
+k0: 3
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 26039.072266
+Maximum Dispatch queue size: 51965
+Avg inst fired per cycle: 1.921303
+Avg inst retired per cycle: 1.921303
+Total run time (cycles): 52048
+
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <gobmk.100k.trace
+Processor Settings
+R: 2
+k0: 3
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 27406.449219
+Maximum Dispatch queue size: 55374
+Avg inst fired per cycle: 1.828421
+Avg inst retired per cycle: 1.828421
+Total run time (cycles): 54692
+
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <hmmer.100k.trace
+Processor Settings
+R: 2
+k0: 3
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 27129.669922
+Maximum Dispatch queue size: 54225
+Avg inst fired per cycle: 1.830396
+Avg inst retired per cycle: 1.830396
+Total run time (cycles): 54633
+
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <mcf.100k.trace
+Processor Settings
+R: 2
+k0: 3
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 26875.132812
+Maximum Dispatch queue size: 53688
+Avg inst fired per cycle: 1.850995
+Avg inst retired per cycle: 1.850995
+Total run time (cycles): 54025
+

@@ -2,8 +2,8 @@
 #include <cinttypes>
 #include <cstdlib>
 #include <cstring>
-// #include <unistd.h>
-#include "XGetopt.h"
+#include <unistd.h>
+// #include "XGetopt.h"
 #include "procsim.hpp"
 
 FILE* inFile = stdin;

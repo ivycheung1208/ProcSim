@@ -148,8 +148,8 @@ private:
 };
 
 
-extern FILE* inFile;
 bool read_instruction(proc_inst_t* p_inst, FILE* fin);
+extern FILE* inFile;
 
 void setup_proc(uint64_t r, uint64_t k0, uint64_t k1, uint64_t k2, uint64_t f);
 void run_proc(proc_stats_t* p_stats);
