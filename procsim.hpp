@@ -76,8 +76,8 @@ public:
 		regFile(vector<RegFileEntry>(REG_NUMBER, RegFileEntry())) {}
 	bool proc_complete;
 	void setFU(int k0, int k1, int k2) { fu_left[0] = k0; fu_left[1] = k1; fu_left[2] = k2; }
-	proc_result_t instProc();
-//	unsigned long getInstCount() { return inst_count; }
+	proc_result_t instProc(int cycle);
+	void resultDisplay();
 private:
 	uint64_t k0, k1, k2, r, f;
 	unsigned int schedQ_capacity; // 2 * (k0 + k1 + k2)
@@ -140,11 +140,14 @@ private:
 	};
 	vector<ResultBusEntry> resultBuses;
 
-	unsigned int stateUpdate(); // return # retired instructions
-	unsigned int instExecute(); // return # fired instructions
-	void instSchedule();
-	void instDispatch();
-	void instFetch();
+	unsigned int stateUpdate(int); // return # retired instructions
+	unsigned int instExecute(int); // return # fired instructions
+	void instSchedule(int);
+	void instDispatch(int);
+	void instFetch(int);
+	
+	// cycle-by-cycle performance
+	vector<vector<int>> procResults;
 };
 
 

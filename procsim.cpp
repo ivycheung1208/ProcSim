@@ -1,12 +1,12 @@
 #include "procsim.hpp"
 
-proc_result_t ProcSim::instProc() {
+proc_result_t ProcSim::instProc(int cycle) {
 	proc_result_t result;
-	result.retired_inst = stateUpdate();
-	result.fired_inst = instExecute();
-	instSchedule();
-	instDispatch();
-	instFetch();
+	result.retired_inst = stateUpdate(cycle);
+	result.fired_inst = instExecute(cycle);
+	instSchedule(cycle);
+	instDispatch(cycle);
+	instFetch(cycle);
 	result.disp_size = dispQ.size();
 	proc_complete = dispQ.empty() && schedQMap.empty();
 	return result;
@@ -15,9 +15,10 @@ proc_result_t ProcSim::instProc() {
 
 
 /***************************************** State Update (SU) ******************************************/
-unsigned int ProcSim::stateUpdate() {
+unsigned int ProcSim::stateUpdate(int cycle) {
 	// Completed instructions in FUs broadcast to free result buses, free FU
 	while (!funcUnits.empty() && resultBuses.size() != r) {
+		procResults[funcUnits.front().instNo - 1][4] = cycle;
 #if DEBUGMODE
 		std::cout << "Retire " << funcUnits.front().instNo << std::endl;
 #endif
@@ -40,7 +41,7 @@ unsigned int ProcSim::stateUpdate() {
 
 
 /***************************************** Execute (EX) ***********************************************/
-unsigned int ProcSim::instExecute() {
+unsigned int ProcSim::instExecute(int cycle) {
 	// If(!RS.Fired && RS.Ready) Fire to FUs if available, copy Destination Register and Tag, mark fired
 	unsigned int fired = 0;
 	for (size_t RS = 0; RS != schedQMap.size(); ++RS) { // for each valid RS (in tag order)
@@ -49,6 +50,7 @@ unsigned int ProcSim::instExecute() {
 #endif
 		if (!schedQ[schedQMap[RS]].Fired && schedQ[schedQMap[RS]].Ready) { // instruction ready to fire
 			if (fu_left[schedQ[schedQMap[RS]].funcUnit] > 0) { // FU available
+				procResults[schedQ[schedQMap[RS]].instNo - 1][3] = cycle;
 #if DEBUGMODE
 				std::cout << "Fire " << schedQ[schedQMap[RS]].instNo << std::endl;
 #endif
@@ -70,7 +72,7 @@ unsigned int ProcSim::instExecute() {
 
 
 /***************************************** Schedule(SH) ***********************************************/
-void ProcSim::instSchedule() {
+void ProcSim::instSchedule(int cycle) {
 	// If(!RS.Filed) Update via result buses, update ready bit
 	for (size_t RS = 0; RS != schedQ.size(); ++RS) { // for each RS in scheduling queue
 		if (schedQ[RS].instNo != 0 && !schedQ[RS].Fired) { // instruction not fired yet
@@ -92,11 +94,12 @@ void ProcSim::instSchedule() {
 
 
 /***************************************** Dispatch (DP) **********************************************/
-void ProcSim::instDispatch() {
+void ProcSim::instDispatch(int cycle) {
 	// Read Register File and dispatch to Schedule Queue, update Register File
 	proc_inst_t *dispInst;
 	size_t index = 0;
 	while (schedQMap.size() != schedQ_capacity && !dispQ.empty()) {
+		procResults[dispQ.front().first - 1][2] = cycle + 1;
 #if DEBUGMODE
 		std::cout << "Schedule " << dispQ.front().first << " in next cycle" << std::endl;
 #endif
@@ -140,12 +143,13 @@ void ProcSim::instDispatch() {
 
 
 /******************************************** Fetch (IF) **********************************************/
-void ProcSim::instFetch() {
+void ProcSim::instFetch(int cycle) {
 	// Fetch next instructions into Dispatch Queue
 	proc_inst_t *p_inst = new proc_inst_t;
 	for (size_t i = 0; !fetch_complete && i != f; ++i) {
 		if (read_instruction(p_inst, inFile)) {
 			dispQ.push(make_pair(++inst_count, *p_inst));
+			procResults.push_back(vector<int> {cycle, cycle + 1, 0, 0, 0});
 		}
 		else
 			fetch_complete = true;
@@ -155,6 +159,18 @@ void ProcSim::instFetch() {
 	std::cout << "Size of dispatch queue: " << dispQ.size() << std::endl;
 #endif
 }
+
+void ProcSim::resultDisplay() {
+	printf("INST\tFETCH\tDISP\tSCHED\tEXEC\tSTATE\n");
+	for (size_t i = 0; i != procResults.size(); ++i) {
+		printf("%d", i + 1);
+		for (size_t j = 0; j != 5; ++j)
+			printf("\t%d", procResults[i][j]);
+		printf("\n");
+	}
+	printf("\n");
+}
+
 
 // Global object that simulates the processor
 ProcSim procSim;
@@ -189,11 +205,11 @@ void run_proc(proc_stats_t* p_stats)
 {
 	proc_result_t result;
 	while (!procSim.proc_complete) {
-#if DEBUGMODE
-		std::cout << p_stats->cycle_count + 1 << std::endl;
-#endif
-		result = procSim.instProc();
 		++p_stats->cycle_count;
+#if DEBUGMODE
+		std::cout << p_stats->cycle_count << std::endl;
+#endif
+		result = procSim.instProc(p_stats->cycle_count);
 		p_stats->retired_instruction += result.retired_inst;
 		p_stats->fired_instruction += result.fired_inst;
 		p_stats->total_disp_size += result.disp_size;
@@ -213,4 +229,5 @@ void complete_proc(proc_stats_t *p_stats)
 	p_stats->avg_inst_retired = (float) p_stats->retired_instruction / p_stats->cycle_count;
 	p_stats->avg_inst_fired = (float) p_stats->fired_instruction / p_stats->cycle_count;
 	p_stats->avg_disp_size = (float) p_stats->total_disp_size / p_stats->cycle_count;
+	procSim.resultDisplay();
 }
