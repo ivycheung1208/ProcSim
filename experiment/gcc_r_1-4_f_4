@@ -1,0 +1,450 @@
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./experiment.sh 
+Processor Settings
+R: 1
+k0: 1
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37936.316406
+Maximum Dispatch queue size: 75862
+Avg inst fired per cycle: 0.971053
+Avg inst retired per cycle: 0.971053
+Total run time (cycles): 102981
+Processor Settings
+R: 1
+k0: 1
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37495.500000
+Maximum Dispatch queue size: 74997
+Avg inst fired per cycle: 0.999960
+Avg inst retired per cycle: 0.999960
+Total run time (cycles): 100004
+Processor Settings
+R: 1
+k0: 1
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37495.500000
+Maximum Dispatch queue size: 74997
+Avg inst fired per cycle: 0.999960
+Avg inst retired per cycle: 0.999960
+Total run time (cycles): 100004
+Processor Settings
+R: 1
+k0: 1
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37493.125000
+Maximum Dispatch queue size: 74995
+Avg inst fired per cycle: 0.999950
+Avg inst retired per cycle: 0.999950
+Total run time (cycles): 100005
+Processor Settings
+R: 1
+k0: 2
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37495.500000
+Maximum Dispatch queue size: 74997
+Avg inst fired per cycle: 0.999960
+Avg inst retired per cycle: 0.999960
+Total run time (cycles): 100004
+Processor Settings
+R: 1
+k0: 2
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37506.589844
+Maximum Dispatch queue size: 75023
+Avg inst fired per cycle: 0.998941
+Avg inst retired per cycle: 0.998941
+Total run time (cycles): 100106
+Processor Settings
+R: 1
+k0: 2
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37506.589844
+Maximum Dispatch queue size: 75023
+Avg inst fired per cycle: 0.998941
+Avg inst retired per cycle: 0.998941
+Total run time (cycles): 100106
+Processor Settings
+R: 1
+k0: 2
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 37490.750000
+Maximum Dispatch queue size: 74993
+Avg inst fired per cycle: 0.999940
+Avg inst retired per cycle: 0.999940
+Total run time (cycles): 100006
+Processor Settings
+R: 2
+k0: 1
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 34134.199219
+Maximum Dispatch queue size: 68500
+Avg inst fired per cycle: 1.285793
+Avg inst retired per cycle: 1.285793
+Total run time (cycles): 77773
+Processor Settings
+R: 2
+k0: 1
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 31041.791016
+Maximum Dispatch queue size: 61963
+Avg inst fired per cycle: 1.533601
+Avg inst retired per cycle: 1.533601
+Total run time (cycles): 65206
+Processor Settings
+R: 2
+k0: 1
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 31140.033203
+Maximum Dispatch queue size: 62167
+Avg inst fired per cycle: 1.524599
+Avg inst retired per cycle: 1.524599
+Total run time (cycles): 65591
+Processor Settings
+R: 2
+k0: 1
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 29514.988281
+Maximum Dispatch queue size: 58665
+Avg inst fired per cycle: 1.656205
+Avg inst retired per cycle: 1.656205
+Total run time (cycles): 60379
+Processor Settings
+R: 2
+k0: 2
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 29713.189453
+Maximum Dispatch queue size: 59389
+Avg inst fired per cycle: 1.635056
+Avg inst retired per cycle: 1.635056
+Total run time (cycles): 61160
+Processor Settings
+R: 2
+k0: 2
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 27160.376953
+Maximum Dispatch queue size: 54149
+Avg inst fired per cycle: 1.836817
+Avg inst retired per cycle: 1.836817
+Total run time (cycles): 54442
+Processor Settings
+R: 2
+k0: 2
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 27036.531250
+Maximum Dispatch queue size: 53903
+Avg inst fired per cycle: 1.847063
+Avg inst retired per cycle: 1.847063
+Total run time (cycles): 54140
+Processor Settings
+R: 2
+k0: 2
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 25989.115234
+Maximum Dispatch queue size: 51855
+Avg inst fired per cycle: 1.925336
+Avg inst retired per cycle: 1.925336
+Total run time (cycles): 51939
+Processor Settings
+R: 3
+k0: 1
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 34121.113281
+Maximum Dispatch queue size: 68477
+Avg inst fired per cycle: 1.288610
+Avg inst retired per cycle: 1.288610
+Total run time (cycles): 77603
+Processor Settings
+R: 3
+k0: 1
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 30668.939453
+Maximum Dispatch queue size: 61280
+Avg inst fired per cycle: 1.565166
+Avg inst retired per cycle: 1.565166
+Total run time (cycles): 63891
+Processor Settings
+R: 3
+k0: 1
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 30655.419922
+Maximum Dispatch queue size: 61243
+Avg inst fired per cycle: 1.566735
+Avg inst retired per cycle: 1.566735
+Total run time (cycles): 63827
+Processor Settings
+R: 3
+k0: 1
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 28688.462891
+Maximum Dispatch queue size: 57029
+Avg inst fired per cycle: 1.727951
+Avg inst retired per cycle: 1.727951
+Total run time (cycles): 57872
+Processor Settings
+R: 3
+k0: 2
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 29072.457031
+Maximum Dispatch queue size: 58004
+Avg inst fired per cycle: 1.689560
+Avg inst retired per cycle: 1.689560
+Total run time (cycles): 59187
+Processor Settings
+R: 3
+k0: 2
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 25117.351562
+Maximum Dispatch queue size: 50056
+Avg inst fired per cycle: 2.000800
+Avg inst retired per cycle: 2.000800
+Total run time (cycles): 49980
+Processor Settings
+R: 3
+k0: 2
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 24597.412109
+Maximum Dispatch queue size: 48877
+Avg inst fired per cycle: 2.048887
+Avg inst retired per cycle: 2.048887
+Total run time (cycles): 48807
+Processor Settings
+R: 3
+k0: 2
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 20666.464844
+Maximum Dispatch queue size: 40969
+Avg inst fired per cycle: 2.366752
+Avg inst retired per cycle: 2.366752
+Total run time (cycles): 42252
+Processor Settings
+R: 4
+k0: 1
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 34121.113281
+Maximum Dispatch queue size: 68477
+Avg inst fired per cycle: 1.288610
+Avg inst retired per cycle: 1.288610
+Total run time (cycles): 77603
+Processor Settings
+R: 4
+k0: 1
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 30668.937500
+Maximum Dispatch queue size: 61280
+Avg inst fired per cycle: 1.565166
+Avg inst retired per cycle: 1.565166
+Total run time (cycles): 63891
+Processor Settings
+R: 4
+k0: 1
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 30646.302734
+Maximum Dispatch queue size: 61223
+Avg inst fired per cycle: 1.567742
+Avg inst retired per cycle: 1.567742
+Total run time (cycles): 63786
+Processor Settings
+R: 4
+k0: 1
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 28687.794922
+Maximum Dispatch queue size: 57027
+Avg inst fired per cycle: 1.727981
+Avg inst retired per cycle: 1.727981
+Total run time (cycles): 57871
+Processor Settings
+R: 4
+k0: 2
+k1: 1
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 29031.220703
+Maximum Dispatch queue size: 57920
+Avg inst fired per cycle: 1.693710
+Avg inst retired per cycle: 1.693710
+Total run time (cycles): 59042
+Processor Settings
+R: 4
+k0: 2
+k1: 1
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 24796.935547
+Maximum Dispatch queue size: 49447
+Avg inst fired per cycle: 2.024947
+Avg inst retired per cycle: 2.024947
+Total run time (cycles): 49384
+Processor Settings
+R: 4
+k0: 2
+k1: 2
+k2: 1
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 24340.564453
+Maximum Dispatch queue size: 48339
+Avg inst fired per cycle: 2.071380
+Avg inst retired per cycle: 2.071380
+Total run time (cycles): 48277
+Processor Settings
+R: 4
+k0: 2
+k1: 2
+k2: 2
+F: 4
+
+Processor stats:
+Total instructions: 100000
+Avg Dispatch queue size: 20123.781250
+Maximum Dispatch queue size: 39884
+Avg inst fired per cycle: 2.411091
+Avg inst retired per cycle: 2.411091
+Total run time (cycles): 41475
+
