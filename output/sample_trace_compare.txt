@@ -1,0 +1,14 @@
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ vim procsim_driver.cpp 
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ vim procsim.hpp 
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ vim procsim.cpp 
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ make
+g++ -g -Wall -std=c++0x -lm procsim.cpp procsim_driver.cpp -o procsim
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <gcc.100k.trace >gcc.out
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ diff gcc.out gcc.output
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <gobmk.100k.trace >gobmk.out
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ diff gobmk.out gobmk.output 
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <hmmer.100k.trace >hmmer.out
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ diff hmmer.out hmmer.output 
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ ./procsim -r 2 -j 3 -k 2 -l 1 <mcf.100k.trace >mcf.out
+ivy@ivy-VGN-CS36H-R:~/Documents/procsim$ diff mcf.out mcf.output
+

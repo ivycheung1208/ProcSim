@@ -1,5 +1,7 @@
 #include "procsim.hpp"
 
+// Top-level processing function
+// call sub-functions for each pipeline stages and update class-scope variables e.g. proc_complete
 proc_result_t ProcSim::instProc(int cycle) {
 	proc_result_t result;
 	result.retired_inst = stateUpdate(cycle);
@@ -189,7 +191,6 @@ ProcSim procSim;
 void setup_proc(uint64_t r, uint64_t k0, uint64_t k1, uint64_t k2, uint64_t f) 
 {
 	procSim = ProcSim(k0, k1, k2, r, f);
-	procSim.setFU(k0, k1, k2);
 }
 
 /**

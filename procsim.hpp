@@ -73,17 +73,17 @@ public:
 		inst_count(0),
 		fetch_complete(false),
 		schedQ(vector<SchedQEntry>(schedQ_capacity, SchedQEntry())),
-		regFile(vector<RegFileEntry>(REG_NUMBER, RegFileEntry())) {}
-	bool proc_complete;
-	void setFU(int k0, int k1, int k2) { fu_left[0] = k0; fu_left[1] = k1; fu_left[2] = k2; }
-	proc_result_t instProc(int cycle);
-	void resultDisplay();
+		regFile(vector<RegFileEntry>(REG_NUMBER, RegFileEntry())) { setFU(k0, k1, k2); }
+	bool proc_complete; // flag indicating whether simulation is complete, i.e. all instructions are retired
+	proc_result_t instProc(int cycle); // main function that simulates processor behavior in each cycle
+	void resultDisplay(); // print the cycle-by-cycle behavior when simulation completes
 private:
 	uint64_t k0, k1, k2, r, f;
 	unsigned int schedQ_capacity; // 2 * (k0 + k1 + k2)
 	unsigned int fu_left[3]; // available function units
-	unsigned long inst_count; // initialize to 0, valid from 1
-	bool fetch_complete;
+	void setFU(int k0, int k1, int k2) { fu_left[0] = k0; fu_left[1] = k1; fu_left[2] = k2; }
+	unsigned long inst_count; // initialize to 0, count from 1
+	bool fetch_complete; // flag indicating whether all intructions are fetched, controls file read operation
 	
 	// Dispatch Queue
 	queue<pair<unsigned long, proc_inst_t>> dispQ; // In-order dispatcher
@@ -106,8 +106,8 @@ private:
 		}
 #endif
 	};
-	vector<SchedQEntry> schedQ; // Out-of-order scheduler
-	vector<unsigned int> schedQMap;
+	vector<SchedQEntry> schedQ; // Out-of-order scheduler, fixed size
+	vector<unsigned int> schedQMap; // table storing instruction index in scheduling queue, s.t. fire in tag order
 	
 	// Register File
 	struct RegFileEntry {
@@ -115,7 +115,7 @@ private:
 		bool Ready;
 		unsigned long Tag;
 	};
-	vector<RegFileEntry> regFile; // fixex size
+	vector<RegFileEntry> regFile; // fixed size register file
 	
 	// Function Units
 	struct FuncUnitEntry {
@@ -146,7 +146,7 @@ private:
 	void instDispatch(int);
 	void instFetch(int);
 	
-	// cycle-by-cycle performance
+	// data structure that stores cycle-by-cycle behavior
 	vector<vector<int>> procResults;
 };
 
